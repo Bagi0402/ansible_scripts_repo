@@ -1,0 +1,23 @@
+---
+- name: Creating file and directory using file module
+  hosts: all
+  become: true
+  gather_facts: no
+  tasks:
+  - name: Creating a file
+    file:
+      path: /home/ansadmin/testfile1
+      state: touch
+      mode: 0755
+
+  - name: Creating a directory
+    file:
+      path: /home/ansadmin/testdirectory1
+      state: directory
+      mode: 0755
+
+  - name: Deleting a file
+    file:
+      path: /home/ansadmin/testfile
+      state: absent
+

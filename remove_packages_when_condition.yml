@@ -1,0 +1,12 @@
+---
+- name: UnInstalling httpd packages
+  hosts: all
+  #  gather_facts: no
+  become: true
+  tasks:
+  - name: Uninstalling httpd packages
+    yum:
+      name: httpd
+      state: absent
+    when: ansible_os_family == "RedHat"
+

@@ -1,0 +1,14 @@
+---
+- name: Installing and Uninstalling using Loop
+  hosts: all
+  become: true
+  gather_facts: no
+  tasks:
+  - name: Using Loop
+    yum:
+      name: "{{item.package}}"
+      state: "{{item.setup}}"
+    loop:
+      - {package: 'git', setup: 'latest'}
+      - {package: 'tree', setup: 'removed'}
+      - {package: 'wget', setup: 'installed'}

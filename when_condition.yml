@@ -1,0 +1,18 @@
+---
+- name: Installing package using when condition
+  hosts: all
+  become: true
+  #  gather_facts: no
+  tasks:
+  - name: Installing httpd package using when condition    
+    yum:
+      name: httpd
+      state: latest
+    when: ansible_os_family == "RedHat" 
+
+  - name: Create new file in the host
+    file:
+      path: /home/ansadmin/testfile_1
+      state: touch
+      mode: 0755
+

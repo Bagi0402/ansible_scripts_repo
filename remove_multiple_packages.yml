@@ -1,0 +1,10 @@
+---
+- name: UnInstalling Multiple packages
+  hosts: all
+  gather_facts: no
+  become: true
+  tasks:
+  - name: Uninstalling multiple packages
+    yum: 
+      name: [ 'gzip' ]
+      state: absent

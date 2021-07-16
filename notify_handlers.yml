@@ -1,0 +1,22 @@
+---
+- name: Installing httpd using Notify and Handlers
+  hosts: all
+  #  gather_facts: no
+  become: true
+  tasks:
+  - name: Installing httpd using Notify and Handlers
+    yum:
+      name: httpd
+      state: installed
+    notify: start httpd service
+
+  - name: create a file
+    file:
+      path: /home/ansadmin/testfile_2
+      state: touch
+
+  handlers: 
+  - name: start httpd service
+    service:
+      name: httpd
+      state: started
