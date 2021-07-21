@@ -1,0 +1,21 @@
+---
+- name: Create a user and directory under user's name
+  hosts: all
+  become: true
+  gather_facts: no
+  vars_files:
+    /home/ansadmin/playbooks/usernames_file.yml    
+
+  tasks:
+  - name: Creating a user named {{user_name}}
+    user:
+      name: "{{user_name}}"
+
+  - name: Creating a Directory under {{user_name}}s name
+    file:
+      path: /opt/{{user_name}}_dir1
+      state: directory
+      owner: "{{user_name}}"
+      group: "{{user_name}}"
+      mode: 0755
+

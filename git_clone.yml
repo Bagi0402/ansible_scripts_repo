@@ -1,0 +1,12 @@
+---
+- name: Clone a Private GIT Repository
+  become: true
+  gather_facts: no
+  hosts: all
+  vars_files:
+    - /home/ansadmin/playbooks/vault1.yml
+  tasks:
+  - name: Cloning Git Private Repo
+    git:
+      repo: https://Bagi0402:{{ git_password }}@github.com/Bagi0402/repo-for-ansible-vault.git
+      dest: /opt/gitrepo1
