@@ -1,0 +1,36 @@
+---
+- name: Install Jenkins
+  hosts: jenkins
+  gather_facts: no
+  become: true
+
+  tasks:
+  - name: Install Java 1.8* and wget
+    yum:
+      name: "{{item}}"
+      state: installed
+    with_items:
+      - java-1.8.0-openjdk
+      - wget
+
+  - name: Downloading jenkins
+    get_url: 
+      url: https://pkg.jenkins.io/redhat/jenkins.repo
+      dest: /etc/yum.repos.d/jenkins.repo
+
+  - name: Adding Jenkins Key
+    rpm_key:
+      state: present
+      key: https://pkg.jenkins.io/redhat/jenkins.io.key
+
+  - name: Installing jenkins
+    yum: 
+      name: jenkins
+      state: present
+
+  - name: Start the Jenkins services
+    service:
+      name: jenkins
+      state: started
+      enabled: yes
+    
